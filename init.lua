@@ -537,17 +537,30 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- clangd = {},
-        -- gopls = {},
+        clangd = {},
+        gopls = {},
         -- pyright = {},
-        -- rust_analyzer = {},
+        pylsp = {},
+        rust_analyzer = {},
+        cmake = {},
+        tailwindcss = {},
+        emmet_language_server = {},
+        html = {},
+        cssls = {},
+        ast_grep = {},
+        cpptools = {},
+        volar = {},
+        astro = {},
+        terraformls = {},
+        jsonls = {},
+
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
-        -- tsserver = {},
+        tsserver = {},
         --
 
         lua_ls = {
@@ -816,6 +829,15 @@ require('lazy').setup({
       --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
     end,
   },
+  {
+    'lervag/vimtex',
+    lazy = false,
+    -- tag
+    init = function()
+      -- VimTex config
+      vim.g.vimtex_view_method = 'zathura'
+    end,
+  },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
@@ -866,3 +888,31 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 0
 vim.opt.smarttab = true
+vim.opt.expandtab = true
+
+-- ccls config
+--[[
+local ccls_util = require 'lspconfig.util'
+local ccls_filetype = { 'c', 'cpp', 'objc', 'objcpp', 'opencl' }
+local ccls_server_config = {
+  filetypes = ccls_filetype,
+  root_dir = function(fname)
+    return ccls_util.root_pattern('compile_commands.json', 'compile_flags.txt', '.git')(fname) or ccls_util.find_git_ancestor(fname)
+  end,
+  name = 'ccls',
+  cmd = { 'ccls' },
+  init_options = {
+    cache = {
+      directory = vim.fs.normalize '~/.cache/ccls',
+    },
+  },
+}
+local lspconfig = require 'lspconfig'
+lspconfig.ccls.setup(ccls_server_config)
+require('ccls').setup {
+  filetypes = ccls_filetype,
+  lsp = {
+    server = ccls_server_config,
+  },
+}
+]]
