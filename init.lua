@@ -676,15 +676,11 @@ require('lazy').setup({
         pylsp = {},
         rust_analyzer = {},
         cmake = {},
-        tailwindcss = {},
         emmet_language_server = {},
         html = {},
         cssls = {},
         ast_grep = {},
         cpptools = {},
-        volar = {},
-        astro = {},
-        terraformls = {},
         jsonls = {},
 
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
