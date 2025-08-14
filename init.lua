@@ -675,7 +675,11 @@ require('lazy').setup({
         -- pyright = {},
         pylsp = {},
         rust_analyzer = {},
-        cmake = {},
+        cmakelang = {},
+        cmakelint = {},
+        cmake = {
+          filetypes = { 'cmake', 'CMakeLists.txt' },
+        },
         emmet_language_server = {},
         html = {},
         cssls = {},
@@ -857,7 +861,7 @@ require('lazy').setup({
       completion = {
         -- By default, you may press `<c-space>` to show the documentation.
         -- Optionally, set `auto_show = true` to show the documentation after a delay.
-        documentation = { auto_show = false, auto_show_delay_ms = 500 },
+        documentation = { auto_show = true, auto_show_delay_ms = 0 },
       },
 
       sources = {
@@ -979,6 +983,21 @@ require('lazy').setup({
       vim.g.vimtex_view_method = 'zathura'
     end,
   },
+  {
+    'nvim-tree/nvim-tree.lua',
+    lazy = false,
+    version = '*',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      require('nvim-tree').setup {}
+    end,
+  },
+  --[[
+  {
+    'nvim-telescope/telescope-file-browser.nvim',
+    dependencies = { 'nvim-telescope/telescope.nvim', 'nvim-lua/plenary.nvim' },
+  },
+    ]]
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
