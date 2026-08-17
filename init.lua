@@ -879,17 +879,19 @@ require('lazy').setup({
     end,
   },
 
+  -- [[
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     lazy = false,
     build = ':TSUpdate',
     branch = 'main',
-    -- [[ Configure Treesitter ]] See `:help nvim-treesitter-intro`
+    -- [[ Configure Treesitter See `:help nvim-treesitter-intro`
     config = function()
       -- ensure basic parser are installed
       local parsers = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' }
       require('nvim-treesitter').install(parsers)
 
+      -- [[
       ---@param buf integer
       ---@param language string
       local function treesitter_try_attach(buf, language)
@@ -929,8 +931,10 @@ require('lazy').setup({
           end
         end,
       })
+    --]]
     end,
   },
+  --]]
   {
     'lervag/vimtex',
     lazy = false,
@@ -945,9 +949,7 @@ require('lazy').setup({
     lazy = false,
     version = '*',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    config = function()
-      require('nvim-tree').setup {}
-    end,
+    config = function() require('nvim-tree').setup {} end,
   },
   --[[
   {
