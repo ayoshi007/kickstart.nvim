@@ -606,9 +606,6 @@ require('lazy').setup({
         rust_analyzer = {},
         cmakelang = {},
         cmakelint = {},
-        cmake = {
-          filetypes = { 'cmake', 'CMakeLists.txt' },
-        },
         emmet_language_server = {},
         html = {},
         cssls = {},
@@ -884,11 +881,28 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     lazy = false,
     build = ':TSUpdate',
+    dependencies = { 'neovim-treesitter/treesitter-parser-registry' },
     branch = 'main',
     -- [[ Configure Treesitter See `:help nvim-treesitter-intro`
     config = function()
       -- ensure basic parser are installed
-      local parsers = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' }
+      local parsers = {
+        'bash',
+        'c',
+        'cpp',
+        'diff',
+        'go',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'python',
+        'query',
+        'rust',
+        'vim',
+        'vimdoc',
+      }
       require('nvim-treesitter').install(parsers)
 
       -- [[
@@ -931,7 +945,7 @@ require('lazy').setup({
           end
         end,
       })
-    --]]
+      --]]
     end,
   },
   --]]
